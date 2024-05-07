@@ -11,3 +11,4 @@ public class Trash extends Circle {
         setFill(Color.GREEN); // Цвет мусора
     }
 }
+

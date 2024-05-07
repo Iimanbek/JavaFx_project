@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class Game extends Application {
     private static final int WIDTH = 800;
-    private static final int HEIGHT = 600;
+    private static final int HEIGHT = 680;
     private static final double SPEED = 2;
 
     private Pane root;

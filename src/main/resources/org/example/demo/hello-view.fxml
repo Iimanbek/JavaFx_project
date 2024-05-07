@@ -1,16 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.example.demo.HelloController">
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="680.0" prefWidth="800.0" spacing="20.0" style="-fx-background-color: linear-gradient(to bottom,#90EE90  , #004040);" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="org.example.demo.HelloController">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+    <Label fx:id="welcomeText" />
+   <Label text="Eco-adventures" textFill="#131212">
+      <font>
+         <Font name="Copperplate Gothic Bold" size="36.0" />
+      </font>
+   </Label>
+   <StackPane prefHeight="525.0" prefWidth="760.0" style="-fx-background-color: linear-gradient(to bottom,#90EE90  , #004040);">
+      <children>
+         <ImageView fitHeight="492.0" fitWidth="702.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@images/image.jpg" />
+            </image>
+         </ImageView>
+          <Button alignment="CENTER" onAction="#onHelloButtonClick" prefHeight="67.0" prefWidth="134.0" style="-fx-background-color: #228B22;" text="Начать" textFill="#fcf8f8">
+            <font>
+               <Font size="22.0" />
+            </font>
+         </Button>
+      </children>
+   </StackPane>
 </VBox>

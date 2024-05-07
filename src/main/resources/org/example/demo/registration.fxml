@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import org.example.demo.RegistrationController?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      alignment="CENTER" spacing="10"
+      fx:controller="org.example.demo.RegistrationController"
+      fx:id="vbox">
+
+    <HBox alignment="CENTER" spacing="10">
+        <!-- Кнопка "Войти" -->
+        <Button id="loginButton" text="Войти" onAction="#handleLogin">
+            <style>
+                -fx-background-color: #4CAF50; /* Зеленый */
+                -fx-text-fill: white; /* Белый текст */
+                -fx-font-size: 14px;
+                -fx-pref-width: 100px; /* Ширина кнопки */
+                -fx-pref-height: 40px; /* Высота кнопки */
+            </style>
+        </Button>
+
+        <!-- Кнопка "Зарегистрироваться" -->
+        <Button id="registerButton" text="Зарегистрироваться" onAction="#handleRegister">
+            <style>
+                -fx-background-color: #f44336; /* Красный */
+                -fx-text-fill: white; /* Белый текст */
+                -fx-font-size: 14px;
+                -fx-pref-width: 150px; /* Ширина кнопки */
+                -fx-pref-height: 40px; /* Высота кнопки */
+            </style>
+        </Button>
+    </HBox>
+
+    <Label fx:id="errorMessageLabel" />
+
+</VBox>
