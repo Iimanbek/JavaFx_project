@@ -8,7 +8,12 @@ public class HelloController {
     @FXML
     private Label welcomeText;
 
-    // Метод для открытия окна регистрации и авторизации
+    private Stage primaryStage;
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+
     @FXML
     protected void startRegistration() {
         try {
@@ -19,6 +24,9 @@ public class HelloController {
             e.printStackTrace();
         }
     }
+    @FXML
+    protected void onHelloButtonClick() {
 
+    }
 
 }

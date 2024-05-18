@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -10,49 +9,83 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="680.0" prefWidth="800.0" spacing="10" style="-fx-background-color: linear-gradient(to bottom,#90EE90 , #004040);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.RegistrationController">
-   <ImageView fitHeight="291.0" fitWidth="682.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@images/image3.jpg" />
-      </image>
-   </ImageView>
-   <Label alignment="TOP_CENTER" text="Войти" textFill="#ece5e5">
-      <font>
-         <Font name="System Italic" size="27.0" />
-      </font>
-   </Label>
+<VBox alignment="CENTER"
+      prefHeight="680.0"
+      prefWidth="800.0"
+      spacing="10"
+      style="-fx-background-color: linear-gradient(to bottom,#90EE90 , #004040);"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.demo.LoginController">
+
+    <ImageView fitHeight="291.0" fitWidth="682.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@images/image3.jpg" />
+        </image>
+    </ImageView>
+    <Label alignment="TOP_CENTER" text="Войти" textFill="#ece5e5">
+        <font>
+            <Font name="System Italic" size="27.0" />
+        </font>
+    </Label>
 
     <HBox alignment="CENTER" spacing="10">
         <Label text="Имя пользователя:" textFill="#e4dede">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
         <TextField fx:id="usernameField" promptText="Имя пользователя">
-         <font>
-            <Font size="18.0" />
-         </font></TextField>
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+    </HBox>
+
+    <HBox alignment="CENTER" spacing="10">
+        <Label text="E-mail:" textFill="#efeaea">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <TextField fx:id="emailField" promptText="E-mail">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
     </HBox>
 
     <HBox alignment="CENTER" spacing="10">
         <Label text="Пароль:" textFill="#efe9e9">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
         <PasswordField fx:id="passwordField" promptText="Пароль">
-         <font>
-            <Font size="18.0" />
-         </font></PasswordField>
+            <font>
+                <Font size="18.0" />
+            </font>
+        </PasswordField>
     </HBox>
 
-    <Label fx:id="errorMessageLabel" />
+    <Label fx:id="errorMessageLabel"  />
 
-    <!-- Кнопка "Готово" -->
-    <Button alignment="CENTER" contentDisplay="CENTER" onAction="#handleConfirm" prefHeight="50.0" prefWidth="92.0" text="Готово" textAlignment="CENTER" textFill="#151816" underline="true">
-        <style>-fx-background-color: #87CEFA; /* Цвет кнопки */            -fx-text-fill: bl; /* Белый текст */-fx-font-size: 17px; -fx-pref-width: 94px; /* Ширина кнопки */-fx-pref-height: 45px; -fx-background-color: #87CEFA;</style>
-      <font>
-         <Font size="30.0" />
-      </font>
+    <!-- Кнопка "Войти" -->
+    <Button alignment="CENTER"
+            contentDisplay="CENTER"
+            onAction="#handleLogin"
+            prefHeight="50.0" prefWidth="92.0"
+            text="Готово" textAlignment="CENTER" textFill="#151816" underline="true">
+        <style>
+            -fx-background-color: #87CEFA; /* Цвет кнопки */
+            -fx-text-fill:black ; /* Цвет текста */
+            -fx-font-size: 17px;
+            -fx-pref-width: 94px; /* Ширина кнопки */
+            -fx-pref-height: 45px;
+        </style>
+        <font>
+            <Font size="30.0" />
+        </font>
     </Button>
-
 
 </VBox>

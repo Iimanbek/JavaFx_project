@@ -12,14 +12,17 @@ public class Registration extends Application {
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/registration.fxml"));
         Parent root = loader.load();
+
         RegistrationController controller = loader.getController();
-        controller.initButtons(primaryStage);
+        controller.initPrimaryStage(primaryStage); // Инициализация primaryStage
+
         primaryStage.setTitle("Авторизация");
         primaryStage.setScene(new Scene(root, 800, 680));
         primaryStage.show();
     }
 
     public static void main(String[] args) {
+
         launch(args);
     }
 }

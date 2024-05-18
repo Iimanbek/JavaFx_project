@@ -16,6 +16,7 @@ public class Hello extends Application {
 
         // Получаем контроллер
         HelloController controller = loader.getController();
+        controller.setPrimaryStage(primaryStage);
 
         // Создаем сцену
         Scene scene = new Scene(root);
@@ -30,3 +31,4 @@ public class Hello extends Application {
         launch(args);
     }
 }
+

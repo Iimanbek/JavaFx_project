@@ -1,31 +1,23 @@
 package org.example.demo;
 
-import java.io.FileWriter;
-import java.io.BufferedReader;
-import java.io.IOException;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.FileReader;
 
-public class RegistrationController {
-
-    @FXML
-    private VBox vbox;
-
-    @FXML
-    private Label errorMessageLabel;
-
-    private Stage primaryStage;
+public class LoginController {
 
     @FXML
     private Button loginButton;
@@ -42,31 +34,14 @@ public class RegistrationController {
     @FXML
     private PasswordField passwordField;
 
+    @FXML
+    private Label errorMessageLabel;
+
+    private Stage primaryStage;
+
     private List<User> users = new ArrayList<>();
 
-    // Метод для чтения данных из файла и их добавления в список пользователей
-    private void loadUsersFromFile() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("database.csv"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] data = line.split(",");
-                if (data.length == 3) { // Исправляем на 3, так как мы теперь сохраняем email
-                    users.add(new User(data[0], data[1], data[2])); // Создаем пользователя с email
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void initialize() {
-        loadUsersFromFile(); // Вызываем метод загрузки при инициализации контроллера
-    }
-
-
-
     public void initPrimaryStage(Stage primaryStage) {
-
         this.primaryStage = primaryStage;
     }
 
@@ -109,41 +84,72 @@ public class RegistrationController {
     }
 
 
-    @FXML
-    private void handleRegister() {
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/registration_form.fxml"));
-            Parent root = loader.load();
-            RegistrationController registrationFormController = loader.getController();
-            registrationFormController.initPrimaryStage(primaryStage);
-            primaryStage.setScene(new Scene(root, 800, 680));
+    private void loadUsersFromFile() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("database.csv"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data.length == 3) {
+                    users.add(new User(data[0], data[1], data[2]));
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void initialize() {
+
+        loadUsersFromFile();
     }
 
     @FXML
     private void handleLogin() {
-        // Ваша текущая логика проверки и обработки входа пользователя
+        String username = usernameField.getText();
+        String password = passwordField.getText();
 
+        if (isValidCredentials(username, password)) {
+            User currentUser = getUserByUsername(username);
+            openMainPage(currentUser);
+        } else {
+            errorMessageLabel.setText("Неверное имя пользователя или email или пароль !");
+        }
+    }
+
+
+    private boolean isValidCredentials(String username, String password) {
+        loadUsersFromFile(); // Загрузим пользователей из файла перед проверкой
+
+        for (User user : users) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    private User getUserByUsername(String username) {
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    private void openMainPage(User currentUser) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/main_page.fxml"));
             Parent root = loader.load();
-
-            // Получаем контроллер страницы авторизации
-            LoginController loginController = loader.getController();
-
-            // Устанавливаем primaryStage и передаем управление LoginController
-            loginController.initPrimaryStage(primaryStage);
-
-            // Устанавливаем сцену
+            MainPageController mainPageController = loader.getController();
+            mainPageController.initPrimaryStage(primaryStage);
+            mainPageController.setUserData(currentUser.getUsername(), currentUser.getEmail());
             primaryStage.setScene(new Scene(root, 800, 680));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
     private void saveUserToFile(User user) {
         try (FileWriter writer = new FileWriter("database.csv", true)) {

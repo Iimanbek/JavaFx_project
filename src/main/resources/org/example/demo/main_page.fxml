@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+
+<BorderPane fx:id="rootPane"
+            maxHeight="-Infinity"
+            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="200.0" prefWidth="300.0"
+            style="-fx-background-color: linear-gradient(to bottom,#90EE90 , #004040);"
+            xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.demo.MainPageController">
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+            <children>
+                <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handleLogout" text="Выйти" prefWidth="100" prefHeight="40" />
+            </children>
+            <padding>
+                <Insets bottom="10.0" right="10.0" />
+            </padding>
+        </HBox>
+    </bottom>
+
+    <center>
+        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+            <children>
+                <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                    <children>
+                        <Label fx:id="usernameLabel" text="Имя пользователя:" textFill="WHITE" />
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </HBox>
+                <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                    <children>
+                        <Label fx:id="emailLabel" text="Email:" textFill="WHITE" />
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                    </padding>
+                </HBox>
+            </children>
+        </VBox>
+    </center>
+
+    <right>
+        <VBox alignment="CENTER_RIGHT" spacing="10" prefWidth="400">
+
+            <ImageView fitWidth="70" fitHeight="70">
+                <image>
+                    <Image url="@images/image11.jpg" />
+                </image>
+            </ImageView>
+
+
+            <!-- Разделительная линия -->
+            <Separator orientation="VERTICAL"/>
+
+            <!-- Строка с первой игрой -->
+            <HBox alignment="CENTER_LEFT" spacing="10" prefWidth="400">
+                <ImageView fitWidth="120" fitHeight="120" fx:id="game1ImageView">
+                    <image>
+                        <Image url="@images/image14.jpg" />
+                    </image>
+                </ImageView>
+                <VBox>
+
+                    <Label text="Отходный Экспресс: Поедание Поездом" fx:id="game1NameLabel" />
+
+                    <Button text="Играть" onAction="#handlePlayFirstGame"/>
+                </VBox>
+            </HBox>
+
+            <!-- Строка с второй игрой -->
+            <HBox alignment="CENTER_LEFT" spacing="10" prefWidth="400">
+                <ImageView fitWidth="120" fitHeight="120" fx:id="game2ImageView">
+                    <image>
+                        <Image url="@images/image15.jpg" />
+                    </image>
+                </ImageView>
+                <VBox>
+                    <Label text="Сортируй и Спасай: Экологический Квест" fx:id="game2NameLabel"/>
+
+                    <Button text="Играть" onAction="#handlePlaySecondGame"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </right>
+
+</BorderPane>
