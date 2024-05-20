@@ -1,126 +1,145 @@
 package org.example.demo;
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Game extends Application {
-    private static final int WIDTH = 800;
-    private static final int HEIGHT = 680;
-    private static final double SPEED = 2;
 
-    private Pane root;
-    private Truck truck;
-    private Trash trash;
-    private double dx = SPEED;
-    private double dy = 0;
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        root = new Pane();
-        Scene scene = new Scene(root, WIDTH, HEIGHT);
-
-        Button startButton = new Button("Start Game");
-        startButton.setOnAction(event -> startGameLoop());
-
-        root.getChildren().add(startButton);
-
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    private static final int TILE_SIZE = 20;
+    private static final int WIDTH = 20;
+    private static final int HEIGHT = 15;
+    private int goal = 20;
+    private int trashX, trashY;
+    private int truckX = WIDTH / 2, truckY = HEIGHT / 2;
+    private int trashCollected = 0;
+    private Direction direction = Direction.RIGHT;
+    private long lastTick = 0;
+    private long speed = 150_000_000; // 150 миллисекунд
+    private int baseX = 5; // координата X базы
+    private int baseY = 5; // координата Y базы
+    private enum Direction {
+        UP, DOWN, LEFT, RIGHT
     }
 
-    private void startGameLoop() {
-        root.getChildren().clear(); // Очищаем корневой узел от кнопки
+    @Override
+    public void start(Stage primaryStage) {
+        Canvas canvas = new Canvas(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        truck = new Truck(100, 100);
-        trash = createNewTrash();
+        generateTrash();
 
-        root.getChildren().addAll(truck, trash);
+        new AnimationTimer() {
+            public void handle(long now) {
+                if (now - lastTick > speed) {
+                    lastTick = now;
+                    tick(gc);
+                }
+            }
+        }.start();
 
-        Scene scene = root.getScene();
-
-        scene.setOnKeyPressed(event -> {
-            switch (event.getCode()) {
+        Scene scene = new Scene(new StackPane(canvas));
+        scene.setOnKeyPressed(e -> {
+            switch (e.getCode()) {
                 case UP:
-                    if (dy == 0) {
-                        dx = 0;
-                        dy = -SPEED;
-                    }
+                    if (direction != Direction.DOWN)
+                        direction = Direction.UP;
                     break;
                 case DOWN:
-                    if (dy == 0) {
-                        dx = 0;
-                        dy = SPEED;
-                    }
+                    if (direction != Direction.UP)
+                        direction = Direction.DOWN;
                     break;
                 case LEFT:
-                    if (dx == 0) {
-                        dx = -SPEED;
-                        dy = 0;
-                    }
+                    if (direction != Direction.RIGHT)
+                        direction = Direction.LEFT;
                     break;
                 case RIGHT:
-                    if (dx == 0) {
-                        dx = SPEED;
-                        dy = 0;
-                    }
-                    break;
-                default:
+                    if (direction != Direction.LEFT)
+                        direction = Direction.RIGHT;
                     break;
             }
         });
 
-        new AnimationTimer() {
-            long lastUpdate = 0;
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Trash Truck Game");
+        primaryStage.show();
+    }
 
-            @Override
-            public void handle(long now) {
-                if (now - lastUpdate >= 16_666_666) { // 60 FPS
-                    moveTruck();
-                    checkCollision();
-                    lastUpdate = now;
-                }
+    private void tick(GraphicsContext gc) {
+        int prevTruckX = truckX;
+        int prevTruckY = truckY;
+
+        switch (direction) {
+            case UP:
+                truckY--;
+                break;
+            case DOWN:
+                truckY++;
+                break;
+            case LEFT:
+                truckX--;
+                break;
+            case RIGHT:
+                truckX++;
+                break;
+        }
+
+        if (truckX < 0 || truckX >= WIDTH || truckY < 0 || truckY >= HEIGHT) {
+            System.out.println("Game Over");
+            System.exit(0);
+        }
+
+        if (truckX == trashX && truckY == trashY) {
+            if (trashCollected<=4){
+                trashCollected++;
+                generateTrash();
+                goal--;
             }
-        }.start();
-    }
 
-    private void moveTruck() {
-        double prevX = truck.getX();
-        double prevY = truck.getY();
-
-        truck.setX(truck.getX() + dx);
-        truck.setY(truck.getY() + dy);
-
-        // Обработка выхода за границы экрана
-        if (truck.getX() >= WIDTH) {
-            truck.setX(0);
-        } else if (truck.getX() < 0) {
-            truck.setX(WIDTH);
         }
 
-        if (truck.getY() >= HEIGHT) {
-            truck.setY(0);
-        } else if (truck.getY() < 0) {
-            truck.setY(HEIGHT);
+        if (truckX == baseX && truckY == baseY) {
+            trashCollected = 0;
+        }
+
+        gc.clearRect(0, 0, WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
+
+        // Draw truck
+        gc.setFill(Color.BLUE);
+        gc.fillRect(truckX * TILE_SIZE, truckY * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+
+        // Draw trailer
+
+
+        // Draw trash
+        gc.setFill(Color.RED);
+        gc.fillRect(trashX * TILE_SIZE, trashY * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+
+        // Draw base
+        gc.setFill(Color.YELLOW);
+        gc.fillRect(baseX * TILE_SIZE, baseY * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+
+        // Draw collected trash count
+        gc.setFill(Color.BLACK);
+        gc.fillText("Trash Collected: " + trashCollected, 10, 20);
+        gc.fillText("left: " + goal, 300, 20);
+        if (goal == 0){
+            gc.fillText("YOU WON", 150, 150);
         }
     }
 
-    private void checkCollision() {
-        if (truck.getBoundsInParent().intersects(trash.getBoundsInParent())) {
-            // Грузовик касается мусора
-            root.getChildren().remove(trash); // Удаляем текущий мусор
-            trash = createNewTrash();
-            root.getChildren().add(trash);
+    private void generateTrash() {
+        trashX = (int) (Math.random() * WIDTH);
+        trashY = (int) (Math.random() * HEIGHT);
+        // Проверяем, чтобы мусор не появлялся на базе
+        while (trashX == baseX && trashY == baseY) {
+            trashX = (int) (Math.random() * WIDTH);
+            trashY = (int) (Math.random() * HEIGHT);
         }
-    }
-
-    private Trash createNewTrash() {
-        double x = Math.random() * (WIDTH - Trash.RADIUS * 2) + Trash.RADIUS;
-        double y = Math.random() * (HEIGHT - Trash.RADIUS * 2) + Trash.RADIUS;
-        return new Trash(x, y);
     }
 
     public static void main(String[] args) {

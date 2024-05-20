@@ -83,12 +83,15 @@ public class MainPageController {
 
     @FXML
     private void handlePlayFirstGame() {
-        // Здесь код для обработки нажатия на кнопку первой игры
-    }
+        try {
+            Stage gameStage = new Stage();
+            new Game().start(gameStage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }    }
 
     @FXML
     private void handlePlaySecondGame() {
-        // Здесь код для обработки нажатия на кнопку второй игры
     }
 
 }
