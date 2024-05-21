@@ -95,7 +95,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         for (int i = 0; i < 20; i++) {
             generateTree();
-            System.out.printf("hello");
+
         }
         root.setPrefSize(600, 600);
 
