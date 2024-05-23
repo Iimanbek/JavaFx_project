@@ -105,12 +105,13 @@ public class Main extends Application {
             if (player.getBoundsInParent().intersects(baseImageView.getBoundsInParent())) {
                 trashCollected = 0;
 
-                Media thankMusik = new Media(getClass().getResource("/thanks.wav").toString());
-                thankPlayer = new MediaPlayer(thankMusik);
-                mediaPlayer.stop();
+
+                mediaPlayer.pause();
                 thankPlayer.play();
                 mediaPlayer.play();
                 updateScore();
+            }else{
+                thankPlayer.stop();
             }
 
             // Проверка на завершение игры
@@ -142,7 +143,9 @@ public class Main extends Application {
         stepPlayer.setOnEndOfMedia(() -> stepPlayer.seek(Duration.ZERO));
 
 
-
+        Media thankMusik = new Media(getClass().getResource("/thanks.wav").toString());
+        thankPlayer = new MediaPlayer(thankMusik);
+        thankPlayer.setOnEndOfMedia(() -> thankPlayer.seek(Duration.ZERO));
 
         Media winMusic = new Media(getClass().getResource("/smw_castle_clear.wav").toString());
         winPlayer = new MediaPlayer(winMusic);
