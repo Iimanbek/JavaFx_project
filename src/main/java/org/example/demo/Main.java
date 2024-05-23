@@ -104,8 +104,6 @@ public class Main extends Application {
             // Проверка на сброс мусора на базе
             if (player.getBoundsInParent().intersects(baseImageView.getBoundsInParent())) {
                 trashCollected = 0;
-
-
                 mediaPlayer.pause();
                 thankPlayer.play();
                 mediaPlayer.play();
