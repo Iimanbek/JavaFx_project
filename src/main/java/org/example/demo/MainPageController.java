@@ -85,7 +85,7 @@ public class MainPageController {
     private void handlePlayFirstGame() {
         try {
             Stage gameStage = new Stage();
-//            new Game().start(gameStage);
+
             new Main().start(gameStage);
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,6 +93,12 @@ public class MainPageController {
 
     @FXML
     private void handlePlaySecondGame() {
+        try {
+            Stage gameStage = new Stage();
+            new Game().start(gameStage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

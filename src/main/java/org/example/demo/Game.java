@@ -100,8 +100,17 @@ public class Game extends Application {
 
         // Воспроизводим фоновую музыку
         playBackgroundMusic();
-    }
+        primaryStage.setOnCloseRequest(event -> stop());
 
+    }
+    public void stop() {
+        if (backgroundMusicPlayer != null) {
+            backgroundMusicPlayer.stop();
+        };
+        if (backgroundMusicPlayer != null) {
+            backgroundMusicPlayer.stop();
+        }
+    };
     public static void main(String[] args) {
         launch(args);
     }

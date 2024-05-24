@@ -191,8 +191,16 @@ public class Main extends Application {
         primaryStage.setTitle("Game");
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setOnCloseRequest(event -> stopd());
     }
-
+    public void stopd() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        };
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
+    };
     public static void main(String[] args) {
         launch(args);
     }
