@@ -22,6 +22,8 @@ import java.util.Map;
 import java.util.Random;
 
 public class Main extends Application {
+
+
     private final Map<KeyCode, Boolean> keys = new EnumMap<>(KeyCode.class);
     private final Image playerImage = new Image(getClass().getResource("/1.png").toString());
     private final ImageView playerImageView = new ImageView(playerImage);
@@ -125,8 +127,10 @@ public class Main extends Application {
     }
 
     public boolean isPressed(KeyCode key) {
+
         return keys.getOrDefault(key, false);
     }
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -192,6 +196,8 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setOnCloseRequest(event -> stopd());
+
+
     }
     public void stopd() {
         if (mediaPlayer != null) {
@@ -202,6 +208,7 @@ public class Main extends Application {
         }
     };
     public static void main(String[] args) {
+
         launch(args);
     }
 

@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Game extends Application {
+
     private final Pane root = new Pane();
     private final List<Trash> trashes = new ArrayList<>();
     private final Random random = new Random();
@@ -221,6 +222,8 @@ public class Game extends Application {
 
         // Остановить фоновую музыку
         backgroundMusicPlayer.stop();
+
+
     }
 
     private int calculateStars() {
@@ -236,6 +239,7 @@ public class Game extends Application {
     }
 
     private void updateScore() {
+
         scoreText.setText("Score: " + score);
     }
 
