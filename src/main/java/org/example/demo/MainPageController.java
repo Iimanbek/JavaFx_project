@@ -8,8 +8,11 @@ import javafx.scene.Scene;
 import java.io.IOException;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.image.ImageView;
-
+import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 public class MainPageController {
 
     @FXML
@@ -39,10 +42,10 @@ public class MainPageController {
     @FXML
     private Button logoutButton;
 
+
     private Stage primaryStage;
     private String username;
     private String email;
-
 
 
     // Метод для инициализации primaryStage
@@ -62,7 +65,7 @@ public class MainPageController {
     private void updateUserData() {
         // Устанавливаем текст для Label из сохраненных данных, если они не пусты
         if (username != null && email != null) {
-            usernameLabel.setText("Имя пользователя: " + username);
+            usernameLabel.setText("Username: " + username);
             emailLabel.setText("Email: " + email);
         }
     }
@@ -70,39 +73,79 @@ public class MainPageController {
     // Метод для выхода из аккаунта
     @FXML
     private void handleLogout() {
-        try {
-
-
-
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/login.fxml"));
-            Parent root = loader.load();
-            LoginController loginController = loader.getController();
-            loginController.initPrimaryStage(primaryStage);
-            primaryStage.setScene(new Scene(root, 800, 680));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Dialog<ButtonType> confirmationDialog = new Dialog<>();
+        confirmationDialog.setContentText("Are you sure you want to leave?");
+        confirmationDialog.getDialogPane().getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
+        confirmationDialog.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.YES) {
+                // Пользователь подтвердил выход
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/login.fxml"));
+                    Parent root = loader.load();
+                    LoginController loginController = loader.getController();
+                    loginController.initPrimaryStage(primaryStage);
+                    primaryStage.setScene(new Scene(root, 800, 680));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
+    @FXML
+    private void handlePlayFirstGame(ActionEvent event) {
+        showInstructions("Instructions for Gangster Cleaner: Garbage Mayhem", "Rules:\n" +
+                        "\n" +
+                        "1.Use the arrows to move the character.\n" +
+                        "2.Press \"Space\" or \"Enter\" to collect garbage.\n" +
+                        "3.For each collected garbage you get 1 point.\n" +
+                        "4.The game ends when 10 pieces of garbage are collected or the field is completed.",
+                () -> {
+                    try {
+                        Stage gameStage = new Stage();
+
+                        new Main().start(gameStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+        }
 
     @FXML
-    private void handlePlayFirstGame() {
-        try {
-            Stage gameStage = new Stage();
+    private void handlePlaySecondGame(ActionEvent event) {
+        showInstructions("Instructions for Sort and Save: Ecological Quest", "Rules:\n" +
+                        "\n" +
+                        "1.Move the trash using the keys or mouse.\n" +
+                        "2.Place trash in the correct bins to earn points.\n" +
+                        "3.Avoid throwing trash into the wrong bins to avoid losing points.\n" +
+                        "4.Complete the sorting in a limited time or number of moves.",
+                () -> {
+                    try {
+                        Stage gameStage = new Stage();
 
-            new Main().start(gameStage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }    }
-
-    @FXML
-    private void handlePlaySecondGame() {
-        try {
-            Stage gameStage = new Stage();
-            new Game().start(gameStage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+                        new Game().start(gameStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
     }
+
+
+    private void showInstructions(String title, String content, Runnable action) {
+        Alert instructionsAlert = new Alert(Alert.AlertType.INFORMATION);
+        instructionsAlert.setTitle(title);
+        instructionsAlert.setHeaderText(null);
+        instructionsAlert.setContentText(content);
+
+        ButtonType okButton = new ButtonType("Ok");
+        instructionsAlert.getButtonTypes().setAll(okButton);
+
+        instructionsAlert.showAndWait().ifPresent(buttonType -> {
+            if (buttonType == okButton) {
+                action.run(); // Запуск игры после нажатия кнопки "Ok"
+            }
+        });
+    }
+
 
 }
+

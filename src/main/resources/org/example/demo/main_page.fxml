@@ -54,7 +54,7 @@
                             <children>
                                 <ImageView fx:id="game1ImageView" fitHeight="210.0" fitWidth="230.0">
                                     <image>
-                                        <Image url="@images/image24.jpg" />
+                                        <Image url="@images/image27.jpg" />
                                     </image>
                                 </ImageView>
                                 <Label fx:id="game1NameLabel" prefHeight="27.0" prefWidth="293.0" style="-fx-font-size: 18; -fx-text-fill: #000000;" text="Gangster Cleaner: Garbage Mayhem" textFill="#bce154" />
