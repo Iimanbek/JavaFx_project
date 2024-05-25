@@ -71,6 +71,10 @@ public class MainPageController {
     @FXML
     private void handleLogout() {
         try {
+
+
+
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/login.fxml"));
             Parent root = loader.load();
             LoginController loginController = loader.getController();

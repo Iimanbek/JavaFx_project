@@ -37,6 +37,10 @@ public class LoginController {
     @FXML
     private Label errorMessageLabel;
 
+    @FXML
+    private Button backButton;
+
+
     private Stage primaryStage;
 
     private List<User> users = new ArrayList<>();
@@ -112,7 +116,7 @@ public class LoginController {
             User currentUser = getUserByUsername(username);
             openMainPage(currentUser);
         } else {
-            errorMessageLabel.setText("Неверное имя пользователя или email или пароль !");
+            errorMessageLabel.setText("Invalid username or email or password!");
         }
     }
 
@@ -154,6 +158,19 @@ public class LoginController {
     private void saveUserToFile(User user) {
         try (FileWriter writer = new FileWriter("database.csv", true)) {
             writer.write(user.getUsername() + "," + user.getEmail() + "," + user.getPassword() + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleBack() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/registration.fxml"));
+            Parent root = loader.load();
+            RegistrationController registrationController = loader.getController();
+            registrationController.initPrimaryStage(primaryStage);
+            primaryStage.setScene(new Scene(root, 800, 680));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,97 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to right, #90EE90, #87CEFA);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.MainPageController">
 
-<BorderPane fx:id="rootPane"
-            maxHeight="-Infinity"
-            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="200.0" prefWidth="300.0"
-            style="-fx-background-color: linear-gradient(to bottom,#90EE90 , #004040);"
-            xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.demo.MainPageController">
-
-    <bottom>
-        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+    <top>
+        <AnchorPane prefHeight="100.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to left, #90EE90, #87CEFA);">
             <children>
-                <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handleLogout" text="Выйти" prefWidth="100" prefHeight="40" />
+                <ImageView fitHeight="52.0" fitWidth="48.0" layoutX="27.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/image17.png" />
+                    </image>
+                </ImageView>
+                <Label fx:id="usernameLabel" alignment="CENTER" layoutX="111.0" layoutY="23.0" style="-fx-font-size: 19;" text="Username:" textFill="#101010" />
+                <Label fx:id="emailLabel" layoutX="111.0" layoutY="51.0" style="-fx-font-size: 19;" text="Email:" textFill="#151515" />
+                <Button fx:id="logoutButton" alignment="CENTER" contentDisplay="BOTTOM" layoutX="655.0" layoutY="27.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="48.0" prefWidth="100" style="-fx-background-color: #228B22;" text="Log out" textFill="#fcfafa">
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+                <Line endX="429.0" endY="8.400001525878906" layoutX="371.0" layoutY="93.0" startX="-370.0" startY="8.399993896484375" />
             </children>
-            <padding>
-                <Insets bottom="10.0" right="10.0" />
-            </padding>
-        </HBox>
-    </bottom>
+        </AnchorPane>
+    </top>
 
     <center>
-        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+        <VBox alignment="TOP_CENTER" prefHeight="546.0" prefWidth="800.0" spacing="20.0" style="-fx-background-color: linear-gradient(to right, #90EE90, #87CEFA);">
             <children>
-                <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                <Label text="Mini-games">
+                    <font>
+                        <Font name="Eras Bold ITC" size="30.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets top="30.0" />
+                    </VBox.margin>
+                </Label>
+                <HBox alignment="CENTER" spacing="20.0">
                     <children>
-                        <Label fx:id="usernameLabel" text="Имя пользователя:" textFill="WHITE" />
+                        <VBox alignment="CENTER" prefHeight="300.0" prefWidth="350.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 10;">
+                            <children>
+                                <ImageView fx:id="game1ImageView" fitHeight="210.0" fitWidth="230.0">
+                                    <image>
+                                        <Image url="@images/image24.jpg" />
+                                    </image>
+                                </ImageView>
+                                <Label fx:id="game1NameLabel" prefHeight="27.0" prefWidth="293.0" style="-fx-font-size: 18; -fx-text-fill: #000000;" text="Gangster Cleaner: Garbage Mayhem" textFill="#bce154" />
+                                <Button onAction="#handlePlayFirstGame" prefHeight="47.0" prefWidth="98.0" style="-fx-background-color: #87CEFA;" text="Play">
+                                    <font>
+                                        <Font size="19.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="300.0" prefWidth="350.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 10;">
+                            <children>
+                                <ImageView fx:id="game2ImageView" fitHeight="210.0" fitWidth="230.0">
+                                    <image>
+                                        <Image url="@images/image15.jpg" />
+                                    </image>
+                                </ImageView>
+                                <Label fx:id="game2NameLabel" prefHeight="27.0" prefWidth="258.0" style="-fx-font-size: 18; -fx-text-fill: #000000;" text="Sort and Save: Ecological Quest" textFill="#bce154" />
+                                <Button onAction="#handlePlaySecondGame" prefHeight="47.0" prefWidth="98.0" style="-fx-background-color: #87CEFA;" text="Play">
+                                    <font>
+                                        <Font size="19.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </VBox>
                     </children>
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </HBox>
-                <HBox alignment="CENTER_RIGHT" spacing="10.0">
-                    <children>
-                        <Label fx:id="emailLabel" text="Email:" textFill="WHITE" />
-                    </children>
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" />
-                    </padding>
+                    <VBox.margin>
+                        <Insets top="25.0" />
+                    </VBox.margin>
                 </HBox>
             </children>
         </VBox>
     </center>
-
-    <right>
-        <VBox alignment="CENTER_RIGHT" spacing="10" prefWidth="400">
-
-            <ImageView fitWidth="70" fitHeight="70">
-                <image>
-                    <Image url="@images/image11.jpg" />
-                </image>
-            </ImageView>
-
-
-            <!-- Разделительная линия -->
-            <Separator orientation="VERTICAL"/>
-
-            <!-- Строка с первой игрой -->
-            <HBox alignment="CENTER_LEFT" spacing="10" prefWidth="400">
-                <ImageView fitWidth="120" fitHeight="120" fx:id="game1ImageView">
-                    <image>
-                        <Image url="@images/image14.jpg" />
-                    </image>
-                </ImageView>
-                <VBox>
-
-                    <Label text="Отходный Экспресс: Поедание Поездом" fx:id="game1NameLabel" />
-
-                    <Button text="Играть" onAction="#handlePlayFirstGame"/>
-                </VBox>
-            </HBox>
-
-            <!-- Строка с второй игрой -->
-            <HBox alignment="CENTER_LEFT" spacing="10" prefWidth="400">
-                <ImageView fitWidth="120" fitHeight="120" fx:id="game2ImageView">
-                    <image>
-                        <Image url="@images/image15.jpg" />
-                    </image>
-                </ImageView>
-                <VBox>
-                    <Label text="Сортируй и Спасай: Экологический Квест" fx:id="game2NameLabel"/>
-
-                    <Button text="Играть" onAction="#handlePlaySecondGame"/>
-                </VBox>
-            </HBox>
-        </VBox>
-    </right>
 
 </BorderPane>
