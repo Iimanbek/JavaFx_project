@@ -42,6 +42,9 @@ public class RegistrationController {
     @FXML
     private PasswordField passwordField;
 
+    @FXML
+    private Button backButton;
+
     private List<User> users = new ArrayList<>();
 
     // Метод для чтения данных из файла и их добавления в список пользователей
@@ -60,7 +63,8 @@ public class RegistrationController {
     }
 
     public void initialize() {
-        loadUsersFromFile(); // Вызываем метод загрузки при инициализации контроллера
+
+        loadUsersFromFile();
     }
 
 
@@ -148,6 +152,19 @@ public class RegistrationController {
     private void saveUserToFile(User user) {
         try (FileWriter writer = new FileWriter("database.csv", true)) {
             writer.write(user.getUsername() + "," + user.getEmail() + "," + user.getPassword() + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleBack() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/registration.fxml"));
+            Parent root = loader.load();
+            RegistrationController registrationController = loader.getController();
+            registrationController.initPrimaryStage(primaryStage);
+            primaryStage.setScene(new Scene(root, 800, 680));
         } catch (IOException e) {
             e.printStackTrace();
         }

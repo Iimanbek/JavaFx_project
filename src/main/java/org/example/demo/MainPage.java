@@ -27,10 +27,20 @@ public class MainPage extends Application {
     }
 
     public void setCurrentUser(User currentUser) {
+
         this.currentUser = currentUser;
     }
 
     public static void main(String[] args) {
+
+        User user = new User("username", "email@example.com", "password");
+
+        // Создаем объект MainPage и устанавливаем текущего пользователя
+        MainPage mainPage = new MainPage();
+        mainPage.setCurrentUser(user);
+
+        // Запускаем приложение
         launch(args);
+
     }
 }
