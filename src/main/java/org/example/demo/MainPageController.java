@@ -80,10 +80,10 @@ public class MainPageController {
             if (response == ButtonType.YES) {
                 // Пользователь подтвердил выход
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/login.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/registration.fxml"));
                     Parent root = loader.load();
-                    LoginController loginController = loader.getController();
-                    loginController.initPrimaryStage(primaryStage);
+                    RegistrationController registrationController = loader.getController();
+                    registrationController.initPrimaryStage(primaryStage);
                     primaryStage.setScene(new Scene(root, 800, 680));
                 } catch (IOException e) {
                     e.printStackTrace();
